@@ -1,0 +1,27 @@
+{
+  "name": "kelp-config",
+  "version": "1.0.0",
+  "description": "config manager for kelp",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd test && ../node_modules/mocha/bin/mocha --harmony test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/song940/kelp-config.git"
+  },
+  "keywords": [
+    "kelp",
+    "config"
+  ],
+  "author": "lsong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/song940/kelp-config/issues"
+  },
+  "homepage": "https://github.com/song940/kelp-config#readme",
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "should": "^8.2.2"
+  }
+}
