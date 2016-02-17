@@ -30,10 +30,6 @@ function load(name){
  * [merge description]
  */
 module.exports = extend(true,
-  extend(true, {
-
-  }, load('default')
-  ), load(env)
+  load('default'),
+  load(env)
 );
-
-console.log(module.exports);
