@@ -9,8 +9,34 @@ $ npm install kelp-config --save
 
 
 ### Example
-````javascript
-var config = require('kelp-config');
+
+config/default.js
+
+```js
+module.exports = 'default';
+```
+
+config/test.js
+
+```js
+module.exports = 'test';
+```
+
+config/production.js
+
+```js
+module.exports = 'production';
+```
+
+
+````bash
+~$ node
+> require('kelp-config') //-> default
+````
+
+````bash
+~$ NODE_ENV=production node
+> require('kelp-config') //-> production
 ````
 
 ### Contributing
