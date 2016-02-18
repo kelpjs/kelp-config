@@ -3,7 +3,6 @@ const fs      = require('fs');
 const path    = require('path');
 const extend  = require('extend');
 const resolve = require('resolve');
-const optimist = require('optimist');
 
 const dir = process.env.CONFIG_DIR || 'config';
 const env = process.env.NODE_ENV   || 'development';
@@ -41,15 +40,24 @@ function load(name){
   return {};
 }
 /**
- * clean optimist's default argvs
+ * [slice description]
+ * @param  {[type]} 2 [description]
+ * @return {[type]}   [description]
  */
-delete optimist.argv[ '_'  ];
-delete optimist.argv[ '$0' ];
+var argv = process.argv.slice(2);
+if(argv.length){
+  try{
+    argv = require('minimist')(argv);
+    delete argv[ '_' ];
+  }catch(e){
+    console.error('\x1b[31m[kelp-config] `minimist` is required when you use command-line arguments .\x1b[0m');
+  }
+}
 /**
  * [merge description]
  */
 module.exports = extend(true,
   load('default'),
   load(env),
-  optimist.argv
+  argv
 );
