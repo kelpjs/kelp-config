@@ -44,10 +44,10 @@ function load(name){
  * @param  {[type]} 2 [description]
  * @return {[type]}   [description]
  */
-var argv = process.argv.slice(2);
-if(argv.length){
+var argv = {};
+if(process.argv.length > 2){
   try{
-    argv = require('minimist')(argv);
+    argv = require('minimist')(process.argv.slice(2));
     delete argv[ '_' ];
   }catch(e){
     console.error('\x1b[31m[kelp-config] `minimist` is required when you use command-line arguments .\x1b[0m');
