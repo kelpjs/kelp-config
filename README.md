@@ -1,12 +1,11 @@
-## kelp-config ![npm](https://badge.fury.io/js/kelp-config.png)
+## kelp-config ![npm](https://badge.fury.io/js/kelp-config.png) [![Build Status](https://travis-ci.org/song940/kelp-config.svg?branch=master)](https://travis-ci.org/song940/kelp-config)
 
-config manager for kelp
+Simple light-weight configuration for kelp :sparkles:
 
 ### Installation
 ````
 $ npm install kelp-config --save
 ````
-
 
 ### Example
 

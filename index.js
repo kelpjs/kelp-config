@@ -3,6 +3,7 @@ const fs      = require('fs');
 const path    = require('path');
 const extend  = require('extend');
 const resolve = require('resolve');
+const optimist = require('optimist');
 
 const dir = process.env.CONFIG_DIR || 'config';
 const env = process.env.NODE_ENV   || 'development';
@@ -40,9 +41,15 @@ function load(name){
   return {};
 }
 /**
+ * clean optimist's default argvs
+ */
+delete optimist.argv[ '_'  ];
+delete optimist.argv[ '$0' ];
+/**
  * [merge description]
  */
 module.exports = extend(true,
   load('default'),
-  load(env)
+  load(env),
+  optimist.argv
 );
