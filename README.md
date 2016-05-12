@@ -12,30 +12,36 @@ $ npm install kelp-config --save
 config/default.js
 
 ```js
-module.exports = 'default';
+module.exports = {
+  name: 'default'
+};
 ```
 
 config/test.js
 
 ```js
-module.exports = 'test';
+module.exports = {
+  name: 'test'
+};
 ```
 
 config/production.js
 
 ```js
-module.exports = 'production';
+module.exports = {
+  name: 'production'
+};
 ```
 
 
 ````bash
 ~$ node
-> require('kelp-config') //-> default
+> require('kelp-config').name //-> default
 ````
 
 ````bash
 ~$ NODE_ENV=production node
-> require('kelp-config') //-> production
+> require('kelp-config').name //-> production
 ````
 
 ### Contributing
