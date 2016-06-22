@@ -3,13 +3,23 @@ const fs      = require('fs');
 const path    = require('path');
 const extend  = require('extend');
 const resolve = require('resolve');
+const pkg     = require('./package');
 
 const dir = process.env.CONFIG_DIR || 'config';
 const env = process.env.NODE_ENV   || 'development';
+
 /**
- * [load description]
- * @param  {[type]} name [description]
- * @return {[type]}      [description]
+ * [print message]
+ * @param  {[type]} msg [message]
+ */
+function print(msg){
+  console.error('\x1b[31m[%s] %s\x1b[0m', pkg.name, msg);
+};
+
+/**
+ * load config
+ * @param  {[type]} name [env filename]
+ * @return {[type]}      [config]
  */
 function load(name){
   var filename = '';
@@ -21,28 +31,26 @@ function load(name){
     });
   }catch(e){}
   if(filename){
-    // yaml loader
-    if(/\.ya?ml$/.test(filename)){
+    if(/\.ya?ml$/.test(filename)){ // yaml loader
+      var content = fs.readFileSync(filename, 'utf8');
       try{
-        return require('js-yaml').safeLoad(fs.readFileSync(filename, 'utf8'));
+        return require('js-yaml').safeLoad(content);
       }catch(e){
-        console.error('\x1b[31m[kelp-config] `js-yaml` is required when you use yaml files .\x1b[0m');
+        print('`js-yaml` is required when you use yaml files .');
       }
-    }else{
-      // js, json, and otherwise .
+    }else{ // js, json, and otherwise .
       try{
         return require(filename);
       }catch(e){
-        console.error('\x1b[31m[kelp-config] Cannot read config from %s\x1b[0m', filename);
+        print('cannot read config from: ' + filename);
       }
     }
   }
   return {};
-}
+};
+
 /**
- * [slice description]
- * @param  {[type]} 2 [description]
- * @return {[type]}   [description]
+ * [command-line arguments supports]
  */
 var argv = {};
 if(process.argv.length > 2){
@@ -50,11 +58,12 @@ if(process.argv.length > 2){
     argv = require('minimist')(process.argv.slice(2));
     delete argv[ '_' ];
   }catch(e){
-    console.error('\x1b[31m[kelp-config] `minimist` is required when you use command-line arguments .\x1b[0m');
+    print('`minimist` is required when you use command-line arguments .');
   }
-}
+};
+
 /**
- * [merge description]
+ * [merge config]
  */
 module.exports = extend(true,
   load('default'),
